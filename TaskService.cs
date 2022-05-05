@@ -1,6 +1,6 @@
-public static class TaskService{
-    public static IEnumerable<Task> GetTasks() => _tasks.Where(t => !t.isDeleted);
-    public static string AddEditTask(Task task){
+public class TaskService : ITaskService{
+    public IEnumerable<Task> GetTasks() => _tasks.Where(t => !t.isDeleted);
+    public string AddEditTask(Task task){
         // Add
         if ( task.Id == "0" ){
             task.Id = Guid.NewGuid().ToString();
@@ -15,7 +15,7 @@ public static class TaskService{
             return "Task successfully modified.";
         }
     }
-    public static string RemoveTask(Task task){
+    public string RemoveTask(Task task){
         var toRemove = GetTask(task.Id);
         task.isDeleted = true;
         _tasks.Remove(toRemove);
